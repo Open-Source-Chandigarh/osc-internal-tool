@@ -1,3 +1,4 @@
+
 /**
  * Map the prisma schema with the corresponding
  * type definitions for controller management
