@@ -1,1 +1,23 @@
 FROM oven/bun
+
+# RUN apt-get update && apt-get install -y npm
+
+WORKDIR /usr/src/app
+
+COPY ./packages ./packages
+COPY ./bun.lock ./bun.lock
+
+COPY ./package.json ./package.json
+COPY ./turbo.json ./turbo.json
+
+COPY ./apps/client ./apps/client
+
+RUN bun install
+
+RUN bun run generate:db
+RUN bunx turbo build --filter=client
+
+EXPOSE 3000
+
+# Start the frontend application
+CMD ["bun", "start:frontend"]

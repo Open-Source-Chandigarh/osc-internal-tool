@@ -14,8 +14,8 @@ passport.deserializeUser(function (user: any, done: any) {
 passport.use(
   new GitHubStrategy(
     {
-      clientID: process.env.GITHUB_OAUTH_CLIENTID!,
-      clientSecret: process.env.GITHUB_OAUTH_SECRET!,
+      clientID: process.env.GITHUB_OAUTH_CLIENTID! || "your_client_id",
+      clientSecret: process.env.GITHUB_OAUTH_SECRET! || "your_client_secret",
       callbackURL:
         process.env.GITHUB_CALLBACK_URL! ||
         "http://localhost:8000/oauth/redirect/github",

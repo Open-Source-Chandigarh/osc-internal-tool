@@ -11,5 +11,37 @@ services:
     volumes:
       - mongodb_data:/data/db
 
+  backend:
+    build: 
+      context: .
+      dockerfile: docker/dockerfile.backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - FRONTEND_URL_SUCCESS=http://localhost:3000
+      - FRONTEND_URL_FAIL=http://localhost:3000
+      - NODE_ENV=development
+      - FRONTEND_URL=http://localhost:3000
+      - JWT_SECRET=your_secret_change_this
+      - GITHUB_CALLBACK_URL=http://localhost:8000/oauth/redirect/github
+      - GITHUB_OAUTH_CLIENTID=your_client_id
+      - GITHUB_OAUTH_SECRET=your_client_secret
+      - DATABASE_URL=mongodb://admin:secret@mongodb:27017/osc-internal?authSource=admin
+    depends_on:
+      - mongodb
+
+  # frontend:
+  #   build: 
+  #     context: .
+  #     dockerfile: docker/dockerfile.frontend
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - BACKEND_URL="http://localhost:8000"
+  #   depends_on:
+  #     - backend
+
+
 volumes:
   mongodb_data:

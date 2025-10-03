@@ -1,16 +1,17 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "../.env.example" });
+
 import express, {
   type NextFunction,
   type Request,
   type Response,
 } from "express";
-import dotenv from "dotenv";
-dotenv.config({ path: "../.env" });
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { rateLimit } from "express-rate-limit";
 import helmet from "helmet";
 import hpp from "hpp";
-import "dotenv/config";
+// import "dotenv/config";
 import passport from "passport";
 import "./utils/passport";
 import type { Express } from "express";
@@ -71,10 +72,10 @@ app.get("/", (req, res) => {
     message: "Welcome to the Backend of the OSC Internal Tool API ",
     version: "1.0.0",
     timestamp: new Date(),
-    environment: process.env.NODE_ENV,
+    environment: process.env.NODE_ENV || "developmet",
     memory: process.memoryUsage(),
     uptime: process.uptime(),
-    FRONTEND_URL: process.env.FRONTEND_URL,
+    FRONTEND_URL: process.env.FRONTEND_URL || "http://localhost:3000",
   });
 });
 app.get("/health", async (req, res) => {
@@ -82,10 +83,10 @@ app.get("/health", async (req, res) => {
     success: true,
     message: "Server is healthy!",
     timestamp: new Date(),
-    environment: process.env.NODE_ENV,
+    environment: process.env.NODE_ENV || "development",
     memory: process.memoryUsage(),
     uptime: process.uptime(),
-    FRONTEND_URL: process.env.FRONTEND_URL,
+    FRONTEND_URL: process.env.FRONTEND_URL || "http://localhost:3000",
   });
 });
 

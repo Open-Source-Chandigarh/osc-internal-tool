@@ -4,7 +4,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run --watch src/index.ts"
+    "build": "tsc -b",
+    "start": "bun --env-file=.env.example dist/index.js",
+    "start:prod": "bun --env-file=.env.example dist/index.js",
+    "dev": "bun run src/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -15,9 +18,6 @@
     "@types/morgan": "^1.9.10",
     "@types/passport": "^1.0.17",
     "@types/passport-github2": "^1.2.9"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
   },
   "dependencies": {
     "@osc/prisma": "*",
