@@ -16,8 +16,9 @@ export type Attendance = "PRESENT" | "ABSENT";
 
 export type Socials = "INSTAGRAM" | "LINKEDIN" | "DISCORD" | "COMMUDLE";
 
+
 // Legacy alias for backward compatibility
-export type EventCategory = EventType;
+export type EventCategory = "MEMBER_ONLY" | "PUBLIC" | EventType;;
 
 // MODEL INTERFACES
 
@@ -72,7 +73,7 @@ export interface Event {
  * Required: userId, eventId, isPresent, entryType (all essential for participation tracking)
  */
 export interface EventParticipant {
-  userId:string;
+  userId: string;
   eventId: string;
   isPresent?: Attendance;
   entryType: EntryType;
@@ -86,7 +87,9 @@ export interface EventCalendar {
   eventDate: Date;
   title: string;
   description: string;
+  markeed: boolean;
   eventId: string;
+  eventType: EventCategory;
 }
 
 /**
@@ -121,13 +124,13 @@ export interface EventPost {
  */
 
 export interface UserResponse extends User {
-  id:string;
-  createdAt:Date;
+  id: string;
+  createdAt: Date;
   updatedAt: Date;
 }
 
 export interface TeamResponse extends Team {
-  id:string;
+  id: string;
   createdAt: Date;
   updatedAt: Date;
 }
