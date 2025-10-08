@@ -135,10 +135,45 @@ class userController {
    * will be of any use
    */
   async handleOAuthLogin(data: jwtInformation) {}
-  /**
-   * update user details for our benefit
-   */
-  async updateUserDetails(req: Request, res: Response) {}
+  
+
+  async updateUserDetails(req: Request, res: Response) {
+
+  try {
+
+    const { id, name, email, rollnumber, password } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "User id is missing", error: true });
+    }
+
+    const user = await prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found", error: true });
+    }
+
+    const newData: any = {};
+
+    if (name) newData.name = name;
+    if (email) newData.email = email;
+    if (rollnumber) newData.rollnumber = rollnumber;
+    if (password) newData.password = await bcrypt.hash(password, 10);
+
+    const userUpdated = await prisma.user.update({
+      where: { id }, data : newData,
+select: { id: true, name: true,email: true,rollnumber: true,role: true,updatedAt: true,},
+    });
+
+    return res.status(200).json({ message: "User updated successfully",error: false, newData: userUpdated,});
+
+  } catch (err: any) {
+    console.error(err);
+    return res.status(500).json({ message: err.message,error: true,
+    });
+  }
+}
+
   /**
    * Helper function inorder to generate a JWT for the user
    */

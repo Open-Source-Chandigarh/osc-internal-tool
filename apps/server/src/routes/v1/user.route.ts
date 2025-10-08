@@ -1,5 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
+import userController from "../../controller/user.controller";
+
 
 export const userRouter = Router();
 
@@ -25,3 +27,9 @@ userRouter.get("/is-authenticated", (req, res) => {
     res.json({ authenticated: false });
   }
 });
+
+userRouter.post("/signup",userController.handleEmailSignup);
+userRouter.post("/login",userController.handleEmailLogin);
+userRouter.post("/update",userController.updateUserDetails); //incomplete in user.controller
+
+export default userRouter;
