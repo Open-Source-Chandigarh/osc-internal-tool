@@ -15,8 +15,9 @@ export type Attendance = "PRESENT" | "ABSENT";
 
 export type Socials = "INSTAGRAM" | "LINKEDIN" | "DISCORD" | "COMMUDLE";
 
+
 // Legacy alias for backward compatibility
-export type EventCategory = EventType;
+export type EventCategory = "MEMBER_ONLY" | "PUBLIC" | EventType;;
 
 // MODEL INTERFACES
 
@@ -85,7 +86,9 @@ export interface EventCalendar {
   eventDate: Date;
   title: string;
   description: string;
+  markeed: boolean;
   eventId: string;
+  eventType: EventCategory;
 }
 
 /**
